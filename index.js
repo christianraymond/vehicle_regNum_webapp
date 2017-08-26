@@ -2,8 +2,16 @@ const express = require('express');
 const app = express();
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const flash = require('express-flash')
+
+const RegRoutes = require('./regNumbers');
+const Models = require('./models');
+const models = Models('mongodb://localhost/regNumber');
+const regRoutes = RegRoutes(models);
 
 app.use(express.static('public'));
+
 app.use(bodyParser.urlencoded({
   extended: false
 }))
@@ -12,28 +20,22 @@ app.engine('handlebars', exphbs({
   defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
+app.use(session({
+  secret: 'keyboard cat',
+  cookie: {
+    maxAge: 60000 * 30
+  }
+}));
 
+app.use(flash());
 //GET home page.
 app.get('/', function(req, res, next) {
-  res.render('home')
+  res.render('home');
 });
 
-//A simple route displays wherever is added in the url.
-app.post('/add', function(req, res) {
-  var plateNumber = req.body.plate;
-  // res.render('home')
-
-  var dataPlates = {
-    plateNumber: plateNumber
-  }
-
-  res.render('home', {
-    dataPlates: dataPlates.plateNumber
-  })
-  return{
-    dataPlates
-  }
-});
+app.get('/regNumbers', RegRoutes.index);
+app.get('/regNumbers/add', RegRoutes.addingSection);
+app.post('/add', RegRoutes.add);
 
 var port = 3000;
 app.listen(port, function() {

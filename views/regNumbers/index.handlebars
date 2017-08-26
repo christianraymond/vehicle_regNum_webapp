@@ -1,0 +1,24 @@
+<h1>Registration</h1>
+
+{{#if messages.error}}
+<div class="error">
+    {{messages.error}}
+    <br>
+    <br>
+</div>
+{{/if}}
+{{#if messages.success}}
+<div class="success">
+    {{messages.success}}
+    <br>
+    <br>
+</div>
+{{/if}}
+
+<a href="/registrations/add">Add Registration</a>
+
+<ul>
+    {{#each regNumbers}}
+    <li>{{name}}</li>
+    {{/each}}
+</ul>

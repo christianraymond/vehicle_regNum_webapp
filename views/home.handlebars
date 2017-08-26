@@ -1,28 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/css/registration_number.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<center><body>
-  <h2><kbd>CAR REGISTRATION NUMBER WEB APPLICATION UP AND RUNNING</kbd></h2>
-<div class="main-page">
-</div>
-  <h6>ADD HERE</h6>
- <form class="" action="/add" method="post">
-  <input type="text" name="plate" placeholder="Search plate number here">
-  <input type="submit" name="" value="Add"><br></br>
+  <link rel="stylesheet" href="../css/registration_number.css">
 
-<!-- <form class="" action="selectTown" method="post"> -->
-  <div class="filterRegNumber">
-    <input type="radio" name="plate" value="CA">CapeTown
-    <input type="radio" name="plate" value="CY">Bellevile
-    <input type="radio" name="plate" value="CP">Paarl
-  </div><br></br>
-  {{dataPlates}}
-</center></body>
+  <body>
+    <h2><kbd>CAR REGISTRATION NUMBER WEB APPLICATION UP AND RUNNING</kbd></h2>
+    <div class="main-page">
+    </div>
+    <h6>ADD HERE</h6>
+    <form class="" action="/add" method="post">
+      <input type="text" name="plate" placeholder="Search plate number here">
+      <input type="submit" name="" value="Add"><br></br>
+
+      <!-- <form class="" action="selectTown" method="post"> -->
+      <div class="filterRegNumber">
+        <input type="radio" name="plate" value="CA">CapeTown
+        <input type="radio" name="plate" value="CY">Bellevile
+        <input type="radio" name="plate" value="CP">Paarl
+      </div><br></br>
+  </body>
 </head>
+<h1>Registration</h1>
+
+{{#if messages.error}}
+<div class="error">
+    {{messages.error}}
+    <br>
+    <br>
+</div>
+{{/if}}
+{{#if messages.success}}
+<div class="success">
+    {{messages.success}}
+    <br>
+    <br>
+</div>
+{{/if}}
+
+<a href="/registrations/add">Add Registration</a>
+
+<ul>
+    {{#each regNumbers}}
+    <li>{{name}}</li>
+    {{/each}}
+</ul>
