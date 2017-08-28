@@ -1,55 +1,58 @@
-module.exports = function(models){
+module.exports = function(models) {
 
-    const plateList = [];
+    var status = null;
 
-    const index = function(req, res, next){
+    const index = function(req, res, next) {
 
-        models.Registration.find({}, function(err, regNumbers){
-            if (err){
+        models.find({}, function(err, regNumbers) {
+            if (err) {
                 return next(err);
+            } else {
+                res.render('home', {
+                    plates: regNumbers,
+                    status: status
+                });
             }
-            res.render('regNumbers/index', {regNumbers});
         });
 
     };
+    const add = function(req, res, next) {
+        const dataPlate = req.body.plate;
 
-    const addingSection = function(req, res){
-        res.render('regNumbers/add');
-    }
-
-    const add = function(req, res, next){
-        //res.send('Add a subject');
-
-        var dataPlate = {
-            name : req.body.dataPlate
-        };
-
-        if (!dataPlate || !dataPlate.name){
-            req.flash('error', 'Registration should not be blank');
-            res.redirect('/regNumbers');
-        }
-        else{
-            models.Registration.create(registrations, function(err, results){
-                if (err){
-                    if (err.code === 11000){
-                        req.flash('error', 'REGNUMBER already exists!');
+        // go to the database and look for the typed in plate number
+        // if it exist (if(regNumber)), in a way just refresh the page with the status massage of already exists
+        // else create the plate number storing it to the database and refresh the page so it can be visible
+        models.findOne({
+            plateNumber: dataPlate
+        }, function(err, regNumber) {
+            if (err) {
+                return next(err)
+            } else if (regNumber) {
+                status = 'Plate already exists';
+                res.redirect('/');
+            } else {
+                models.create({
+                    plateNumber: dataPlate
+                }, function(err, results) {
+                    if (err) {
+                        if (err.code === 11000) {
+                            req.flash('error', 'REGNUMBER already used!');
+                        } else {
+                            return next(err);
+                        }
+                    } else {
+                        req.flash('success', 'REGNUMBER added!');
                     }
-                    else{
-                        return next(err);
-                    }
-                }
-                else{
-                    req.flash('success', 'REGNUMBER added!');
-                }
-                res.redirect('/regNumbers');
-            });
-        }
+                    status = null;
+                    res.redirect('/');
+                });
+            }
+        });
     }
 
     return {
         index,
-        add,
-        addingSection
+        add
     }
 
 }

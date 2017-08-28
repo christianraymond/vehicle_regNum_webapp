@@ -5,10 +5,9 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('express-flash')
 
-const RegRoutes = require('./regNumbers');
 const Models = require('./models');
-const models = Models('mongodb://localhost/regNumber');
-const regRoutes = RegRoutes(models);
+const RegRoutes = require('./regNumbers');
+const regRoutes = RegRoutes(Models);
 
 app.use(express.static('public'));
 
@@ -28,14 +27,13 @@ app.use(session({
 }));
 
 app.use(flash());
-//GET home page.
-app.get('/', function(req, res, next) {
-  res.render('home');
-});
 
-app.get('/regNumbers', RegRoutes.index);
-app.get('/regNumbers/add', RegRoutes.addingSection);
-app.post('/add', RegRoutes.add);
+app.get('/home', function(req, res){
+  res.send('This is my home page')
+})
+// ROUTES
+app.get('/', regRoutes.index);
+app.post('/add', regRoutes.add);
 
 var port = 3000;
 app.listen(port, function() {

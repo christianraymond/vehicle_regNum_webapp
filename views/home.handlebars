@@ -14,9 +14,8 @@
     <h6>ADD HERE</h6>
     <form class="" action="/add" method="post">
       <input type="text" name="plate" placeholder="Search plate number here">
-      <input type="submit" name="" value="Add"><br></br>
+      <input type="submit" name="plateNumber" value="Add"><br></br>
 
-      <!-- <form class="" action="selectTown" method="post"> -->
       <div class="filterRegNumber">
         <input type="radio" name="plate" value="CA">CapeTown
         <input type="radio" name="plate" value="CY">Bellevile
@@ -24,27 +23,27 @@
       </div><br></br>
   </body>
 </head>
-<h1>Registration</h1>
 
 {{#if messages.error}}
-<div class="error">
+  <div class="error">
     {{messages.error}}
     <br>
     <br>
-</div>
+  </div>
 {{/if}}
 {{#if messages.success}}
-<div class="success">
+  <div class="success">
     {{messages.success}}
     <br>
     <br>
-</div>
+  </div>
 {{/if}}
-
-<a href="/registrations/add">Add Registration</a>
-
+<b>
+{{status}}
+       </b>
 <ul>
-    {{#each regNumbers}}
-    <li>{{name}}</li>
-    {{/each}}
+  {{#each plates}}
+    <li>{{this.plateNumber}}</li>
+  {{/each}}
 </ul>
+</div>
