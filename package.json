@@ -4,7 +4,8 @@
   "description": "creating a car registration number web app using expressJS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "starts": "node index"
   },
   "author": "ChrisNgu",
   "license": "ISC",
