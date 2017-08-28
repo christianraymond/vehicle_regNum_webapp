@@ -2,17 +2,18 @@ body{
   background-color: #121210;*/
   text-align: center;
   color: white;
+  text-align: center;
 }
 
 li{
   border: 2px solid #121210;
-  padding: 15px 20px;
+  padding: 5px 10px;
   background: gray;
   width: 100px;
   border-radius: 20px;
   margin-top: -45px;
   margin-bottom: 47px;
-  margin-left: -0px;
+  margin-left: 380px;
   list-style: none;
   text-align: center
 }

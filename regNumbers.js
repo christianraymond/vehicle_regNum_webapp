@@ -17,7 +17,7 @@ module.exports = function(models) {
 
     };
     const add = function(req, res, next) {
-        const dataPlate = req.body.plate;
+        const dataPlate = req.body.plate.toUpperCase();
 
         // go to the database and look for the typed in plate number
         // if it exist (if(regNumber)), in a way just refresh the page with the status massage of already exists
