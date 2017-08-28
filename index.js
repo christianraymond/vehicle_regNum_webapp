@@ -35,6 +35,7 @@ app.get('/home', function(req, res){
 app.get('/', regRoutes.index);
 app.post('/add', regRoutes.add);
 
+app.set('port', process.env.PORT || 5000);
 var port = 3000;
 app.listen(port, function() {
   console.log('App runnig on ' + 'http://localhost:' + port);
