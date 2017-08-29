@@ -24,7 +24,7 @@ app.use(session({
   cookie: {
     maxAge: 60000 * 30
   }
-}));
+}))
 
 app.use(flash());
 
@@ -34,6 +34,8 @@ app.get('/home', function(req, res){
 // ROUTES
 app.get('/', regRoutes.index);
 app.post('/add', regRoutes.add);
+app.get('/', regRoutes.filterLoc);
+app.post('/doFilter', regRoutes.doFilter);
 
 app.set('port', process.env.PORT || 5000);
 var port = 3000;

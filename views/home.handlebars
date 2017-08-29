@@ -15,12 +15,15 @@
     <form class="" action="/add" method="post">
       <input type="text" name="plate" placeholder="Search plate number here" required>
       <input type="submit" name="plateNumber" value="Add" required><br></br>
+    </form>
 
-      <div class="filterRegNumber">
-        <input type="radio" name="plate" value="CA">CapeTown
-        <input type="radio" name="plate" value="CY">Bellevile
-        <input type="radio" name="plate" value="CP">Paarl
-      </div><br></br>
+    <form class="" action="/doFilter" method="post">
+      <input type="radio" name="loc" value="CA" required>CapeTown
+      <input type="radio" name="loc" value="CY" required>Bellevile
+      <input type="radio" name="loc" value="CP" required>Paarl <br></br>
+      <input type="submit" name="filterReg" value="Filter" required>
+    </form>
+    </div><br></br>
   </body>
 </head>
 
@@ -44,6 +47,10 @@
 <ul>
   {{#each plates}}
     <li>{{this.plateNumber}}</li>
+  {{/each}}
+
+  {{#each filterReg}}
+    <li>{{this.filterReg}}</li>
   {{/each}}
 </ul>
 </div>
