@@ -34,7 +34,7 @@ app.get('/home', function(req, res){
 // ROUTES
 app.get('/', regRoutes.index);
 app.post('/add', regRoutes.add);
-app.get('/', regRoutes.filterLoc);
+app.get('/filteredLoc', regRoutes.filterLoc);
 app.post('/doFilter', regRoutes.doFilter);
 
 app.set('port', process.env.PORT || 5000);

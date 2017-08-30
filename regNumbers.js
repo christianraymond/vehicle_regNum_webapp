@@ -10,7 +10,6 @@ module.exports = function(models) {
         res.render('home', {
           plates: regNumbers,
           status: status,
-          // filter: filter
         });
       }
     });
@@ -52,28 +51,33 @@ module.exports = function(models) {
   }
 
   function filterLoc(req, res, next) {
-
-  }
+    models.find({}, function(errr, regNumbers) {
+      if (err) {
+        return (next)
+      } else {
+        render('/filteredLoc', {
+          plates: regNumbers,
+          status: status
+        });
+      }
+    });
+  };
 
   function doFilter(req, res, next) {
     const regLoc = req.body.loc;
-    console.log(regLoc);
-    models.findOne({
-      filterReg: {
-        '$regex': '.*' + regLoc
+    models.find({
+      plateNumber: {
+        $regex: regLoc
       }
     }, function(err, filterReg) {
       if (err) {
         return next(err)
-      } else if (filterReg) {
-        filterReg: ({
-          '$regex': '.*' + regLoc
-        })
-        res.render('/doFilter');
+      } else {
+        console.log(filterReg);
+        res.render('home', {plate: filterReg})
       }
-    })
+    });
   }
-
   return {
     add,
     doFilter,

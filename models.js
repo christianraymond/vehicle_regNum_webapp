@@ -11,9 +11,7 @@ mongoose.connect(mongoURL, {
   }
 });
 const Registration = mongoose.model('Registration', {
-  plateNumber: String,
-  filterReg: String
-
+  plateNumber: String
 });
 
 module.exports = Registration;
